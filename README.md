@@ -6,6 +6,9 @@ Downloads Spotify playlists to mp3 files that are then tagged and given album ar
 * mutagen (pip install mutagen)
 * youtube_dl (pip install youtube_dl)
 * BeautifulSoup4 (pip install beautifulsoup4)
+* ffmpeg (described in Installation#4+5)
+
+
 Note: Spotipy is also required but I have included it in this repository. Gathered from [https://github.com/plamere/spotipy](https://github.com/plamere/spotipy).
 
 # Installation
