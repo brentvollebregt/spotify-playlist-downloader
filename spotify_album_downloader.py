@@ -5,6 +5,8 @@ import os
 import urllib.request
 import sys
 
+PYTHON_EXECUTABLE = os.path.join(os.path.dirname(sys.executable), 'python.exe') # Not pythonw.exe
+
 # Third party packages check
 print('[Top Level] Importing third party libraries')
 try:
@@ -12,7 +14,7 @@ try:
     from spotipy.oauth2 import SpotifyClientCredentials
 except ImportError:
     print('spotipy is not installed. You can install this by executing the following in a terminal:')
-    print('\t"{0}" -m pip install spotipy'.format(os.path.dirname(sys.executable)))
+    print('\t"{0}" -m pip install spotipy'.format(PYTHON_EXECUTABLE))
     input()
     sys.exit(1)
 
@@ -22,7 +24,7 @@ try:
     from mutagen.easyid3 import EasyID3
 except ImportError:
     print('mutagen is not installed. You can install this by executing the following in a terminal:')
-    print('\t"{0}" -m pip install mutagen'.format(os.path.dirname(sys.executable)))
+    print('\t"{0}" -m pip install mutagen'.format(PYTHON_EXECUTABLE))
     input()
     sys.exit(1)
 
@@ -30,7 +32,7 @@ try:
     import youtube_dl
 except ImportError:
     print('youtube-dl is not installed. You can install this by executing the following in a terminal:')
-    print('\t"{0}" -m pip install youtube-dl'.format(os.path.dirname(sys.executable)))
+    print('\t"{0}" -m pip install youtube-dl'.format(PYTHON_EXECUTABLE))
     input()
     sys.exit(1)
 
@@ -38,7 +40,7 @@ try:
     from bs4 import BeautifulSoup
 except ImportError:
     print('beautifulsoup4 is not installed. You can install this by executing the following in a terminal:')
-    print('\t"{0}" -m pip install beautifulsoup4'.format(os.path.dirname(sys.executable)))
+    print('\t"{0}" -m pip install beautifulsoup4'.format(PYTHON_EXECUTABLE))
     input()
     sys.exit(1)
 
@@ -165,7 +167,7 @@ for song in song_data:
                 break
         if not a:
             print ("Failed on: " + song_data[song]['artist'] + "  - " + song_data[song]['title'])
-            print('[Top Level] If youtube-dl if out of date, execute the following in terminal: "{0}" -m pip install youtube-dl --upgrade'.format(os.path.dirname(sys.executable)))
+            print('[Top Level] If youtube-dl if out of date, execute the following in terminal: "{0}" -m pip install youtube-dl --upgrade'.format(PYTHON_EXECUTABLE))
 
             continue
         print ("Download Complete")
