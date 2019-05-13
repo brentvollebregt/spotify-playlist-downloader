@@ -1,24 +1,57 @@
+# Imports from standard library
 import json
-from spotipy.oauth2 import SpotifyClientCredentials
-import spotipy
 import time
-
-from mutagen.mp3 import MP3
-from mutagen.id3 import ID3, APIC, error, TYER
-from mutagen.easyid3 import EasyID3
-import youtube_dl
-import urllib.request
-from bs4 import BeautifulSoup
 import os
+import urllib.request
+import sys
 
+# Third party packages check
+print('[Top Level] Importing third party libraries')
+try:
+    import spotipy
+    from spotipy.oauth2 import SpotifyClientCredentials
+except ImportError:
+    print('spotipy is not installed. You can install this by executing the following in a terminal:')
+    print('\t"{0}" -m pip install spotipy'.format(os.path.dirname(sys.executable)))
+    input()
+    sys.exit(1)
+
+try:
+    from mutagen.mp3 import MP3
+    from mutagen.id3 import ID3, APIC, error, TYER
+    from mutagen.easyid3 import EasyID3
+except ImportError:
+    print('mutagen is not installed. You can install this by executing the following in a terminal:')
+    print('\t"{0}" -m pip install mutagen'.format(os.path.dirname(sys.executable)))
+    input()
+    sys.exit(1)
+
+try:
+    import youtube_dl
+except ImportError:
+    print('youtube-dl is not installed. You can install this by executing the following in a terminal:')
+    print('\t"{0}" -m pip install youtube-dl'.format(os.path.dirname(sys.executable)))
+    input()
+    sys.exit(1)
+
+try:
+    from bs4 import BeautifulSoup
+except ImportError:
+    print('beautifulsoup4 is not installed. You can install this by executing the following in a terminal:')
+    print('\t"{0}" -m pip install beautifulsoup4'.format(os.path.dirname(sys.executable)))
+    input()
+    sys.exit(1)
+
+
+# Get Keys
 with open('settings.json') as data_file:
     settings = json.load(data_file)
 
+# Create Spotify object
+print('[Top Level] Setting up Spotify object...')
 client_credentials_manager = SpotifyClientCredentials(client_id=settings['spotify']['client_id'], client_secret=settings['spotify']['client_secret'])
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 sp.trace=False
-
-
 
 
 def chunks(l, n):
@@ -124,14 +157,16 @@ for song in song_data:
             if i.endswith(".mp3"):
                 os.remove(os.getcwd() + "\\" + i)
 
-        for i in range(5):
+        for i in range(3):
             a = downloadYoutubeToMP3(video_URL)
             if not a:
-                print ("Video download attempt " + str(i + 1) + " failed")
+                print ('Video download attempt {0} failed'.format(i + 1))
             else:
                 break
         if not a:
             print ("Failed on: " + song_data[song]['artist'] + "  - " + song_data[song]['title'])
+            print('[Top Level] If youtube-dl if out of date, execute the following in terminal: "{0}" -m pip install youtube-dl --upgrade'.format(os.path.dirname(sys.executable)))
+
             continue
         print ("Download Complete")
         files_in_cd = os.listdir(os.getcwd())
