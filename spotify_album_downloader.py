@@ -108,8 +108,8 @@ uri = input("[Top Level] Enter uri: ")
 
 start_time = time.time()
 
-username = uri.split(':')[2]
-playlist_id = uri.split(':')[4]
+username = settings['spotify_username']
+playlist_id = uri.split(':')[2]
 offset = 0
 results = sp.user_playlist_tracks(username, playlist_id, offset=offset)
 individual_songs += results['items']

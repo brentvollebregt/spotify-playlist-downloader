@@ -2,5 +2,6 @@
     "spotify": {
         "client_id": "",
         "client_secret": ""
-    }
+    },
+    "spotify_username": ""
 }
